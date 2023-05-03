@@ -7,9 +7,8 @@ DROP TABLE IF EXISTS goals CASCADE;
 CREATE TABLE users (
   user_id INT GENERATED ALWAYS AS IDENTITY,
   username VARCHAR(60) UNIQUE NOT NULL,
-  email VARCHAR(120) NOT NULL,
   password VARCHAR(140) NOT NULL,
-  created_at timestamp,
+  created_at timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (user_id)
 );
 
