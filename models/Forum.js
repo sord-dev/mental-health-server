@@ -24,7 +24,7 @@ class Forum {
   }
 
   static async getOneById(id) {
-    const query = 'SELECT * FROM forums WHERE id = $1';
+    const query = 'SELECT * FROM forums WHERE forum_id = $1';
     const values = [id];
     const { rows } = await db.query(query, values);
     if (rows.length === 0) {
@@ -36,7 +36,7 @@ class Forum {
 
   async save() {
     if (this.id) {
-      const query = 'UPDATE forums SET title=$1, content=$2 WHERE id=$3 RETURNING *';
+      const query = 'UPDATE forums SET title=$1, content=$2 WHERE forum_id=$3 RETURNING *';
       const values = [this.title, this.content, this.id];
       const { rows } = await db.query(query, values);
       return new Forum(rows[0]);
@@ -49,8 +49,8 @@ class Forum {
   }
 
   async destroy() {
-    const query = 'DELETE FROM forums WHERE id = $1';
-    const values = [this.id];
+    const query = 'DELETE FROM forums WHERE forum_id = $1';
+    const values = [this.forum_id];
     await db.query(query, values);
   }
 

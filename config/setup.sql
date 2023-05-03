@@ -23,7 +23,7 @@ CREATE TABLE shop (
 );
 
 CREATE TABLE forums (
-    post_id INT GENERATED ALWAYS AS IDENTITY,
+    forum_id INT GENERATED ALWAYS AS IDENTITY,
     title VARCHAR(60),
     content VARCHAR(250),
     created_at timestamp DEFAULT 
@@ -31,7 +31,7 @@ CREATE TABLE forums (
     updated_at timestamp DEFAULT 
     CURRENT_TIMESTAMP,
     user_id INT,
-    PRIMARY KEY (post_id),
+    PRIMARY KEY (forum_id),
     FOREIGN KEY (user_id) REFERENCES users("user_id")
 );
 
