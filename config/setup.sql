@@ -8,8 +8,7 @@ CREATE TABLE users (
   user_id INT GENERATED ALWAYS AS IDENTITY,
   username VARCHAR(60) UNIQUE NOT NULL,
   password VARCHAR(140) NOT NULL,
-  created_at timestamp DEFAULT 
-  CURRENT_TIMESTAMP,
+  created_at timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (user_id)
 );
 
