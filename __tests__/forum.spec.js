@@ -1,5 +1,5 @@
-const db = require('../../config/postgresdb')
-const Forum = require('../Forum');
+const db = require('../config/postgresdb')
+const Forum = require('../models/Forum');
 
 describe('Forum model', () => {
   beforeAll(async () => {

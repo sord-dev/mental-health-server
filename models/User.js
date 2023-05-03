@@ -2,8 +2,8 @@ const {genSalt, hash, compare} = require('bcrypt');
 const db = require('../config/postgresdb.js');
 
 class User {
-    constructor({id, username, password, created_at}){
-        this.id = id;
+    constructor({user_id, username, password, created_at}){
+        this.user_id = user_id;
         this.username = username;
         this.password = password;
         this.created_at = created_at;
@@ -28,7 +28,7 @@ class User {
     }
 
     static async findById(id) {
-        const response = await db.query('SELECT * FROM users WHERE id = $1 LIMIT 1;', [id])
+        const response = await db.query('SELECT * FROM users WHERE user_id = $1 LIMIT 1;', [id])
         if(!response.rowCount) throw new Error('Creation Error')
 
         return new User(response.rows[0])

@@ -1,13 +1,13 @@
 const db = require("../config/postgresdb");
 
 class Forum {
-  constructor(data) {
-    this.id = data.id;
-    this.title = data.title;
-    this.content = data.content;
-    this.user_id = data.user_id;
-    this.created_at = data.created_at;
-    this.updated_at = data.updated_at
+  constructor({ forum_id, title, content, user_id, created_at, updated_at }) {
+    this.forum_id = forum_id;
+    this.title = title;
+    this.content = content;
+    this.user_id = user_id;
+    this.created_at = created_at;
+    this.updated_at = updated_at
   }
 
   static async getAll() {
@@ -64,7 +64,7 @@ class Forum {
       throw new Error(`Failed to create forum: ${err.message}`);
     }
   }
-  
+
 }
 
 module.exports = Forum;
