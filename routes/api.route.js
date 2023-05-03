@@ -9,6 +9,6 @@ router.get('/', async (req, res, next) => {
 
 router.use("/forum", forumRouter);
 router.use("/comments", commentRouter);
-router.use('/auth', authRouter)
+router.use('/auth', authRouter);
 
 module.exports = router;
