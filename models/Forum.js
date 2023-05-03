@@ -11,41 +11,41 @@ class Forum {
   }
 
   static async getAll() {
-    const query = 'SELECT * FROM forums ORDER BY created_at DESC';
-    const { rows } = await db.query(query);
+    const { rows } = await db.query('SELECT * FROM forums ORDER BY created_at DESC');
+
     return rows.map((row) => new Forum(row));
   }
 
   static async getAllCreatedByUser(user_id) {
-    const query = 'SELECT * FROM forums WHERE user_id = $1 ORDER BY created_at DESC';
-    const values = [user_id];
-    const { rows } = await db.query(query, values);
-    return rows.map((row) => new Forum(row));
+    const response = await db.query('SELECT * FROM forums WHERE user_id = $1 ORDER BY created_at DESC', [user_id]);
+    if (!response.rowCount) return []
+
+    return response.rows.map((row) => new Forum(row));
   }
 
-  static async getOneById(id) {
-    const query = 'SELECT * FROM forums WHERE forum_id = $1';
-    const values = [id];
-    const { rows } = await db.query(query, values);
-    if (rows.length === 0) {
-      return null;
-    } else {
-      return new Forum(rows[0]);
-    }
+  static async getOneById(forum_id) {
+    const { rows } = await db.query('SELECT * FROM forums WHERE forum_id = $1', [forum_id]);
+    if (rows.length === 0) throw new Error('No such forum')
+
+    return new Forum(rows[0]);
   }
 
   async save() {
-    if (this.id) {
-      const query = 'UPDATE forums SET title=$1, content=$2 WHERE forum_id=$3 RETURNING *';
-      const values = [this.title, this.content, this.id];
-      const { rows } = await db.query(query, values);
-      return new Forum(rows[0]);
-    } else {
-      const query = 'INSERT INTO forums (title, content, user_id) VALUES ($1, $2, $3) RETURNING *';
-      const values = [this.title, this.content, this.user_id];
-      const { rows } = await db.query(query, values);
-      return new Forum(rows[0]);
-    }
+    if (this.forum_id) return await this.update();
+
+    const values = [this.title, this.content, this.user_id];
+    const response = await db.query('INSERT INTO forums (title, content, user_id) VALUES ($1, $2, $3) RETURNING *', values);
+    if (!response.rowCount) throw new Error('Creation Error.')
+
+    return new Forum(response.rows[0]);
+  }
+
+  async update() {
+    const values = [this.title, this.content, this.id];
+    const response = await db.query('UPDATE forums SET title=$1, content=$2 WHERE forum_id=$3 RETURNING *', values);
+    if (!response.rowCount) throw new Error('Update Error.')
+
+    return new Forum(response.rows[0]);
   }
 
   async destroy() {
