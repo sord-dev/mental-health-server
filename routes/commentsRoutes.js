@@ -1,6 +1,6 @@
 const {Router } = require('express')
 
-const commentController = require('../controllers/commentController')
+const commentController = require('../controllers/commentsController.js')
 
 const commentRouter = Router();
 
