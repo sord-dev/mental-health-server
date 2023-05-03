@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const User = require('../models/User.js');
 
 module.exports.register = async (req, res) => {
     if (!req.body.username || !req.body.password) return res.status(422).json({ message: 'Incorrect Input' });
