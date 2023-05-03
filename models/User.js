@@ -19,7 +19,7 @@ class User {
         // insert user into db
         const response = await db.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *;', [username, hashed])
         if(!response.rowCount) throw new Error('Creation Error')
-
+        
         return new User(response.rows[0])
     }
 
