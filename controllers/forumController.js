@@ -1,28 +1,38 @@
 const Forum = require("../models/Forum")
 
-async function index (req, res){
+async function index(req, res) {
     try {
         const forums = await Forum.getAll();
         res.status(200).json(forums);
 
     } catch (err) {
-        res.status(400).json({error : err.message });
+        res.status(400).json({ error: err.message });
     }
 }
 
-async function getByUserId (req, res) {
+async function getById(req, res) {
+    try {
+        const id = parseInt(req.params.forum_id);
+        const forum = await Forum.getOneById(id);
+        res.status(200).json(forum);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+}
+
+async function getByUserId(req, res) {
     try {
         const id = parseInt(req.params.id);
         const forums = await Forum.getAllCreatedByUser(id);
         res.status(200).json(forums);
-    } catch(err) {
+    } catch (err) {
         res.status(400).json({ error: err.message });
     }
 }
 
 async function create(req, res) {
     const data = req.body;
-    
+
     if (!data.title || !data.content) {
         res.status(400).json({ error: 'Failed to create forum: title and content are required' });
     } else {
@@ -36,7 +46,7 @@ async function create(req, res) {
     }
 }
 
-async function destroy (req, res) {
+async function destroy(req, res) {
     try {
         const id = parseInt(req.params.id);
         const forum = await Forum.getOneById(id);
@@ -47,7 +57,7 @@ async function destroy (req, res) {
     }
 }
 
-async function update (req, res) {
+async function update(req, res) {
     try {
         const id = parseInt(req.params.id);
         const { title, content } = req.body;
@@ -70,4 +80,4 @@ async function update (req, res) {
     }
 }
 
-module.exports = { index, destroy, create, getByUserId, update };
+module.exports = { index, destroy, create, getByUserId, getById, update };
