@@ -23,7 +23,7 @@ class User {
         return new User(response.rows[0])
     }
 
-    static async comparePasword(input, hashed) {
+    static async comparePassword(input, hashed) {
         return await compare(input, hashed);
     }
 
