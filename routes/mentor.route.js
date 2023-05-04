@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const ChatGPT = require('../models/ChatGPT')
+const mem = [];
 
 router.get('/', async (req, res) => {
     try {
@@ -12,12 +13,13 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/chat', async (req, res) => {
-    const mem = [];
+    let { message } = req.body;
+    mem.push(message)
 
-    mem.push(req.body.message)
+    let messages = mem.map(m => m.content).join('\n');
 
     try {
-        const response = await ChatGPT.generateMentorChat(...mem);
+        const response = await ChatGPT.generateMentorChat(messages);
 
         res.status(200).json({ message: response });
     } catch (error) {
