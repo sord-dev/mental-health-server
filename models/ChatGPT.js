@@ -9,9 +9,15 @@ const ChatGPT = {
         return parseGPT(res.choices[0].message.content);
     },
 
+    generateMentorChat: async (prompt) => {
+        const res = await OpenAPI.command({type: 'Personalities/David', content: prompt});
+
+        return res.choices[0].message.content
+    },
+
     generateGamePromptResponse: async (prompt) => {
         const res = await OpenAPI.command({type: 'Moderation/DalleGame', content: prompt});
-        if(!res?.choices) throw new Error('Error generating recipe')
+        
         return parseGPT(res.choices[0].message.content);
     },
 }

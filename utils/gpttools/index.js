@@ -7,8 +7,8 @@ const OpenAPI = new OpenAIApi(config);
 const GPTCommands = require('./commands')
 
 OpenAPI.command = async ({ type, content }) => {
-    let typeCmd = type.split('/'); // parse command type
-    let prefix = GPTCommands[typeCmd[0]][typeCmd[1]]; // get init prefix for ChatGPT Model
+    let typeCmd = type ? type.split('/') : null; // parse command type
+    let prefix = typeCmd ? GPTCommands[typeCmd[0]][typeCmd[1]] : ''; // get init prefix for ChatGPT Model
 
     let cmd = { role: "user", content: prefix + " " + content };
 
