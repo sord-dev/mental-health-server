@@ -16,7 +16,7 @@ OpenAPI.command = async ({ type, content }) => {
         const res = await OpenAPI.createChatCompletion({
             model: "gpt-3.5-turbo",
             messages:  [cmd],
-            temperature: 0.7,
+            temperature: 0.4,
         });
 
         return res.data;
