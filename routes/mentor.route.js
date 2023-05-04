@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const ChatGPT = require('../models/ChatGPT')
-let mem = []; // chat short term memory
 
+let mem = []; // chat short term memory
 router.post('/chat', async (req, res) => { // {message: {content: input, role: 'user'}}
     let { message } = req.body;
     mem.push(message)
@@ -11,9 +11,9 @@ router.post('/chat', async (req, res) => { // {message: {content: input, role: '
     
     if(mem.length > 40) mem = [] // hard limit to chat memory
     console.log(parsedHistory);
+    
     // when messages get too long
     // summarise conversation and save messages to db
-
 
     try {
         const response = await ChatGPT.generateMentorChat(parsedHistory);

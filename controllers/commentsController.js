@@ -11,24 +11,34 @@ async function getByPostId(req, res) {
 }
 
 async function create(req, res) {
+  const postId = req.params.id;
   const data = req.body;
   try {
-    const comment = await Comment.create(data);
-    res.status(201).json(comment);
+    const comment = await Comment.create(data, postId);
+    res.status(201).json({
+      message: 'Comment created successfully',
+      comment,
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 }
 
+
 async function destroy(req, res) {
   const commentId = req.params.id;
   try {
-    await Comment.destroy(commentId);
+    const comment = await Comment.getByCommentId(commentId);
+    if (!comment) {
+      throw new Error(`Comment with ID ${commentId} not found`);
+    }
+    await comment.destroy();
     res.status(204).end();
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 }
+
 
 module.exports = {
   getByPostId,

@@ -1,4 +1,5 @@
 const db = require("../config/postgresdb");
+const User = require("../models/User")
 
 class Forum {
   constructor({ forum_id, title, content, user_id, created_at, updated_at }) {
@@ -11,9 +12,12 @@ class Forum {
   }
 
   static async getAll() {
-    const { rows } = await db.query('SELECT * FROM forums ORDER BY created_at DESC');
+    const response = await db.query('SELECT * FROM forums ORDER BY created_at DESC');
 
-    return rows.map((row) => new Forum(row));
+    if (response.rows.length === 0) {
+      throw new Error ("No forums available");
+  }
+    return response.rows.map((row) => new Forum(row));
   }
 
   static async getAllCreatedByUser(user_id) {
@@ -24,10 +28,10 @@ class Forum {
   }
 
   static async getOneById(forum_id) {
-    const { rows } = await db.query('SELECT * FROM forums WHERE forum_id = $1', [forum_id]);
-    if (rows.length === 0) throw new Error('No such forum')
+    const response = await db.query('SELECT * FROM forums WHERE forum_id = $1', [forum_id]);
+    if (response.rows.length === 0) throw new Error('No such forum')
 
-    return new Forum(rows[0]);
+    return new Forum(response.rows[0]);
   }
 
   async save() {
@@ -40,13 +44,21 @@ class Forum {
     return new Forum(response.rows[0]);
   }
 
-  async update() {
-    const values = [this.title, this.content, this.id];
-    const response = await db.query('UPDATE forums SET title=$1, content=$2 WHERE forum_id=$3 RETURNING *', values);
-    if (!response.rowCount) throw new Error('Update Error.')
-
-    return new Forum(response.rows[0]);
+  static async updateOneById(id, { title, content }) {
+    const query = {
+      text: 'UPDATE forums SET title=$1, content=$2 WHERE forum_id=$3 RETURNING *',
+      values: [title, content, id],
+    };
+  
+    const result = await db.query(query);
+  
+    if (result.rows.length === 0) {
+      return null;
+    }
+  
+    return new Forum(result.rows[0]);
   }
+  
 
   async destroy() {
     const query = 'DELETE FROM forums WHERE forum_id = $1';
@@ -55,8 +67,15 @@ class Forum {
   }
 
   static async create(data) {
+    const userExists = await User.findById(data.user_id);
+  
+    if (!userExists) {
+      throw new Error('Invalid user ID');
+    }
+  
     const query = 'INSERT INTO forums (title, content, user_id) VALUES ($1, $2, $3) RETURNING *';
     const values = [data.title, data.content, data.user_id];
+  
     try {
       const { rows } = await db.query(query, values);
       return new Forum(rows[0]);
@@ -64,6 +83,7 @@ class Forum {
       throw new Error(`Failed to create forum: ${err.message}`);
     }
   }
+  
 
 }
 
