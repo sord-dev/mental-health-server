@@ -36,7 +36,7 @@ describe("Auth Endpoint Tests", () => {
     it('Should reject request to POST /auth/login with incorrect credentials (wrong username)', async () => {
         const response = await server.post('/auth/login').send({ username: "admi", password: "admin" });
 
-        expect(response.statusCode).toEqual(500)
+        expect(response.statusCode).toEqual(400)
     });
 
     it('Should reject request to POST /auth/login with incorrect credentials (wrong password)', async () => {
