@@ -10,12 +10,12 @@ OpenAPI.command = async ({ type, content }) => {
     let typeCmd = type ? type.split('/') : null; // parse command type
     let prefix = typeCmd ? GPTCommands[typeCmd[0]][typeCmd[1]] : ''; // get init prefix for ChatGPT Model
 
-    let cmd = { role: "user", content: prefix + " " + content };
+    let cmd = { role: "user", content: prefix + ' ' + content };
 
     try {
         const res = await OpenAPI.createChatCompletion({
             model: "gpt-3.5-turbo",
-            messages: [cmd],
+            messages:  [cmd],
             temperature: 0.7,
         });
 

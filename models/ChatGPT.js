@@ -10,7 +10,7 @@ const ChatGPT = {
     },
 
     generateMentorChat: async (prompt) => {
-        const res = await OpenAPI.command({type: 'Personalities/David', content: prompt});
+        const res = await OpenAPI.command({type: 'Personalities/Morgan', content: prompt});
 
         return res.choices[0].message.content
     },
