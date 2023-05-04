@@ -9,6 +9,7 @@ CREATE TABLE users (
   username VARCHAR(60) UNIQUE NOT NULL,
   password VARCHAR(140) NOT NULL,
   created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+  dabloons INT DEFAULT 0,
   PRIMARY KEY (user_id)
 );
 
