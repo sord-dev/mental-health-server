@@ -9,7 +9,7 @@ const createDbEnv = async () => {
 const populateDbEnv = async () => {
     await db.query("INSERT INTO pg_temp.users (username, password) VALUES ('admin', '$2b$10$N39VyBLSkrADURxUAhB8l.VY4MPPAGJcTnyHfnf/eMBkWiRwUGagq')")
     await db.query("INSERT INTO pg_temp.forums (title, content, user_id) VALUES ('title test', 'content test', 1)")
-    await db.query("INSERT INTO pg_temp.comments (content, user_id) VALUES ('content test', 1)")
+    await db.query("INSERT INTO pg_temp.comments (content,forum_id, user_id) VALUES ('content test',1, 1)")
 
 }
 

@@ -7,7 +7,8 @@
     "start": "node app.js",
     "setup-db": "node ./config/setup-db.js",
     "dev": "nodemon app.js",
-    "test": "jest --force-exit --verbose"
+    "test": "jest --force-exit --verbose",
+    "coverage": "jest --forceExit --coverage --coverageReporters=text-summary"
   },
   "keywords": [],
   "author": "",

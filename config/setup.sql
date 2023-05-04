@@ -43,8 +43,10 @@ CREATE TABLE comments (
     update_at timestamp DEFAULT 
     CURRENT_TIMESTAMP,
     user_id INT,
+    forum_id INT,
     PRIMARY KEY (comment_id),
-    FOREIGN KEY (user_id) REFERENCES users("user_id")
+    FOREIGN KEY (user_id) REFERENCES users("user_id"),
+    FOREIGN KEY (forum_id) REFERENCES forums("forum_id") ON DELETE CASCADE
 );
 
 CREATE TABLE goals (
