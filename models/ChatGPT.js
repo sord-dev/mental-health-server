@@ -1,6 +1,8 @@
 const { GPTTools } = require('../utils')
 const { OpenAPI, parseGPT } = GPTTools;
 
+const { Mentors } = require('../utils/gpttools/commands/aimentors')
+
 const ChatGPT = { 
     
     generateModerationPromptResponse: async (prompt) => {
@@ -9,8 +11,8 @@ const ChatGPT = {
         return parseGPT(res.choices[0].message.content);
     },
 
-    generateMentorChat: async (prompt) => {
-        const res = await OpenAPI.command({type: 'Personalities/Morgan', content: prompt});
+    generateMentorChat: async (prompt, mentor) => {
+        const res = await OpenAPI.command({type: `AiPersonalities/${Mentors[mentor]}`, content: prompt});
 
         return res.choices[0].message.content
     },

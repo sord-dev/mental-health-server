@@ -10,5 +10,4 @@ const Mentors = {
     "87ecafae03a8458690dbc651aa36f177" : "David"
 }
 
-module.exports.Mentors = Mentors;
-module.exports = AiPersonalities;
+module.exports = {AiPersonalities, Mentors};
