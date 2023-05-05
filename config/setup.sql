@@ -40,6 +40,7 @@ CREATE TABLE forums (
 
 CREATE TABLE comments (
     comment_id INT GENERATED ALWAYS AS IDENTITY,
+    username VARCHAR(60) NOT NULL,
     comment VARCHAR(250),
     created_at timestamp DEFAULT 
     CURRENT_TIMESTAMP,

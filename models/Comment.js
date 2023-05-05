@@ -1,10 +1,12 @@
 const db = require("../config/postgresdb");
-const Forum = require("./Forum")
+const Forum = require("./Forum");
+const User = require("./User");
 
 class Comment {
-  constructor({ id, content, user_id, forum_id }) {
+  constructor({ id, comment, username, user_id, forum_id }) {
     this.id = id;
-    this.content = content;
+    this.comment = comment;
+    this.username = username || null;
     this.user_id = user_id;
     this.forum_id = forum_id;
   }
@@ -39,17 +41,23 @@ class Comment {
   }
   
 
-  static async create(data, forum_id) {
+  static async create(data) {
     try {
-      // Check if forum with the given forum_id exists
-      const forumExists = await Forum.getOneById(forum_id);
+      console.log(data)
+      const forumExists = await Forum.getOneById(data.forum_id);
       if (!forumExists) {
-        throw new Error(`Forum with ID ${forum_id} not found`);
+        throw new Error(`Forum with ID ${data.forum_id} not found`);
       }
+      
+      const user = await User.findById(data.user_id)
+      if (!user) {
+        throw new Error(`User with ID ${data.user_id} not found`);
+      }
+
   
       // Insert comment into the database
-      const query = 'INSERT INTO comments (content, user_id, forum_id) VALUES ($1, $2, $3) RETURNING *';
-      const values = [data.content, data.user_id, forum_id];
+      const query = 'INSERT INTO comments (comment, username, user_id, forum_id) VALUES ($1, $2, $3, $4) RETURNING *';
+      const values = [data.comment, user.username, data.user_id, data.forum_id];
       const { rows } = await db.query(query, values);
       return new Comment(rows[0]);
     } catch (err) {
