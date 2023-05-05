@@ -52,6 +52,13 @@ class User {
 
         return new User(response.rows[0])
     }
+
+    async updateGoals(goals) {
+        const response = await db.query('UPDATE users SET goals = $1 WHERE user_id = $2 RETURNING *;', [goals, this.user_id])
+        if(!response.rowCount) throw new Error('Update points error')
+
+        return new User(response.rows[0])
+    }
 }
 
 module.exports = User;
