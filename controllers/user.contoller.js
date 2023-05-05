@@ -5,7 +5,6 @@ module.exports.updatePoints = async (req, res) => {
 
     try {
         const user = await User.findById(user_id);
-
         const updated = await user.updatePoints(points);
 
         res.status(200).json({...updated, password: null})

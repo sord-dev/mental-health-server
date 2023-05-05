@@ -10,7 +10,7 @@ const DallE = {
             size: "512x512",
             response_format: "url",
         });
-        return response.data.data[0].url;
+        return response.data.data[0];
     },
 }
 module.exports = DallE;
