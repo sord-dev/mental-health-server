@@ -38,7 +38,8 @@ CREATE TABLE forums (
 
 CREATE TABLE comments (
     comment_id INT GENERATED ALWAYS AS IDENTITY,
-    content VARCHAR(250),
+    username VARCHAR(60) NOT NULL,
+    comment VARCHAR(250),
     created_at timestamp DEFAULT 
     CURRENT_TIMESTAMP,
     update_at timestamp DEFAULT 
