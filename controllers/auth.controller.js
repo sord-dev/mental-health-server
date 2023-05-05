@@ -21,6 +21,6 @@ module.exports.login = async (req, res) => {
         if (await User.comparePassword(req.body.password, user.password)) res.status(200).json({ ...user, password: null })
         else res.status(401).json({ error: 'Incorrect Password' });
     } catch (error) {
-        res.status(400).json({ message: error.message })
+        res.status(404).json({ message: error.message })
     }
 } 
