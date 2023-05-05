@@ -2,12 +2,14 @@ const {genSalt, hash, compare} = require('bcrypt');
 const db = require('../config/postgresdb.js');
 
 class User {
-    constructor({user_id, username, password, created_at, dabloons}){
+    constructor({user_id, username, password, created_at, dabloons, goals, mentor}){
         this.user_id = user_id;
         this.username = username;
         this.password = password;
         this.created_at = created_at;
         this.dabloons = dabloons;
+        this.goals = goals;
+        this.mentor = mentor;
     }
 
     static async create(data) {
