@@ -3,6 +3,10 @@ const ChatGPT = require('../models/ChatGPT')
 
 const AiPersonalities = require('../utils/gpttools/commands/aimentors')
 
+const filterDefaults = items => {
+    return items.map(([name, p]) => (p.price && { name, price: p.price, category: p.category })).filter(i => !!i == true)
+};
+
 let personailites = Object.keys(AiPersonalities);
 let mem = personailites.reduce((acc, key) => ({ ...acc, [key]: [] }), {});
 
@@ -19,7 +23,6 @@ router.post('/chat', async (req, res) => { // {message: {content: input, role: '
 
     // when messages get too long
     // summarise conversation and save messages to db
-
     try {
         const response = await ChatGPT.generateMentorChat(parsedHistory, mentor);
         mem[mentor].push({ role: 'assistant', content: response })
@@ -34,9 +37,11 @@ router.get('/info', async (req, res) => {
     res.status(200).json(personailites);
 })
 
-router.get('/prices', async (req, res) => {
-    let info = Object.entries(AiPersonalities).map(([name, p]) => ({name, price: p.price, category: p.category }))
-    res.status(200).json(info);
+router.get('/prices', async (req, res) => { // a route to get all the prices of items
+    let personailtiesData = Object.entries(AiPersonalities) // get all items entries
+    let info = filterDefaults(personailtiesData) // make an object omitting the prompt value and values with no price (default items)
+
+    res.status(200).json(info); // return priced item objects
 })
 
 module.exports = router;
