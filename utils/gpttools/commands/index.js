@@ -1,4 +1,4 @@
-const { AiPersonalities } = require('./aimentors');
+const AiPersonalities = require('./aimentors');
 const Moderation = require('./moderation');
 
 const GPTConfig = {

@@ -2,7 +2,6 @@ DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS shop CASCADE;
 DROP TABLE IF EXISTS forums CASCADE;
 DROP TABLE IF EXISTS comments CASCADE;
-DROP TABLE IF EXISTS goals CASCADE;
 
 CREATE TABLE users (
   user_id INT GENERATED ALWAYS AS IDENTITY,
@@ -51,17 +50,4 @@ CREATE TABLE comments (
     PRIMARY KEY (comment_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (forum_id) REFERENCES forums(forum_id) ON DELETE CASCADE
-);
-
-CREATE TABLE goals (
-    goal_id INT GENERATED ALWAYS AS IDENTITY,
-    title VARCHAR(50),
-    content VARCHAR(250),
-    created_at timestamp DEFAULT 
-    CURRENT_TIMESTAMP,
-    update_at timestamp DEFAULT 
-    CURRENT_TIMESTAMP,
-    user_id INT,
-    PRIMARY KEY (goal_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );

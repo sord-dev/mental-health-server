@@ -1,5 +1,4 @@
 require("dotenv").config();
-
 const { Configuration, OpenAIApi } = require("openai");
 
 const config = new Configuration({ apiKey: process.env.OPEN_AI_API_KEY });
@@ -28,3 +27,4 @@ OpenAPI.command = async ({ type, content }) => {
 
 module.exports.OpenAPI = OpenAPI;
 module.exports.parseGPT = require("./parseGPT");
+module.exports.buildGPTScript = require("./buildGPTScript");
