@@ -34,7 +34,7 @@ CREATE TABLE shop (
 
 CREATE TABLE forums (
     forum_id INT GENERATED ALWAYS AS IDENTITY,
-    title VARCHAR(60),
+    title VARCHAR(60) NOT NULL,
     content VARCHAR(250),
     created_at timestamp DEFAULT 
     CURRENT_TIMESTAMP,
