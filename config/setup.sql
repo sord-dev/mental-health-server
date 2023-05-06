@@ -14,6 +14,12 @@ CREATE TABLE users (
   PRIMARY KEY (user_id)
 );
 
+INSERT INTO users(username, password, dabloons, goals)
+VALUES ('stef', '$2b$10$9DvfbVwvWt7.KYKBm8/x8.fAc4cW8zkX9izaKVitBl8oYYM9i3GJG', 999999999, '[]'),
+('banana', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 999999999, '[]'),
+('bart', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 0, '[]'),
+('mihai', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 0, '[]');
+
 CREATE TABLE shop (
     shop_id INT GENERATED ALWAYS AS IDENTITY,
     item_id INT,
