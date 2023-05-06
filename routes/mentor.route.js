@@ -4,7 +4,7 @@ const ChatGPT = require('../models/ChatGPT')
 let personailites = Object.keys(require('../utils/gpttools/commands/aimentors'));
 let mem = personailites.reduce((acc, key) => ({ ...acc, [key]: [] }), {});
 
-router.post('/chat', async (req, res) => { // {message: {content: input, role: 'user'}, mentor: 378278931278hijdfa }
+router.post('/chat', async (req, res) => { // {message: {content: input, role: 'user'}, mentor: 'David' }
     let { message, mentor } = req.body;
     mem[mentor].push(message)
 

@@ -27,4 +27,3 @@ OpenAPI.command = async ({ type, content }) => {
 
 module.exports.OpenAPI = OpenAPI;
 module.exports.parseGPT = require("./parseGPT");
-module.exports.buildGPTScript = require("./buildGPTScript");
