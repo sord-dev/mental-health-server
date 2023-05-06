@@ -67,8 +67,8 @@ async function update(req, res) {
     const id = parseInt(req.params.id);
     const { title, content } = req.body;
 
-    if (!title && !content) {
-      return res.status(400).json({ error: 'Failed to update forum post: title or content are required' });
+    if (!title) {
+      return res.status(400).json({ error: 'Failed to update forum post: title' });
     }
 
     const forum = await Forum.updateOneById(id, { title, content });
