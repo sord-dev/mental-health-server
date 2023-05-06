@@ -23,7 +23,6 @@ router.post('/chat', async (req, res) => { // {message: {content: input, role: '
     try {
         const response = await ChatGPT.generateMentorChat(parsedHistory, mentor);
         mem[mentor].push({ role: 'assistant', content: response })
-        mem[mentor].push({ role: 'assistant', content: response })
 
         res.status(200).json({ message: response });
     } catch (error) {
