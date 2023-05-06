@@ -54,9 +54,6 @@ async function destroy(req, res) {
     const id = parseInt(req.params.id);
     const forum = await Forum.getOneById(id);
 
-
-
-
     const result = await forum.destroy();
     res.status(204).json({ result, message: 'Forum post deleted successfully' });
   } catch (err) {
