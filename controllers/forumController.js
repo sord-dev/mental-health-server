@@ -54,9 +54,6 @@ async function destroy(req, res) {
     const id = parseInt(req.params.id);
     const forum = await Forum.getOneById(id);
 
-
-
-
     const result = await forum.destroy();
     res.status(204).json({ result, message: 'Forum post deleted successfully' });
   } catch (err) {
@@ -70,8 +67,8 @@ async function update(req, res) {
     const id = parseInt(req.params.id);
     const { title, content } = req.body;
 
-    if (!title && !content) {
-      return res.status(400).json({ error: 'Failed to update forum post: title or content are required' });
+    if (!title) {
+      return res.status(400).json({ error: 'Failed to update forum post: title' });
     }
 
     const forum = await Forum.updateOneById(id, { title, content });
