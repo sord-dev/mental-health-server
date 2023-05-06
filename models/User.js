@@ -59,6 +59,14 @@ class User {
 
         return new User(response.rows[0])
     }
+
+    async updateMentor(mentor) {
+        console.log(mentor, this.user_id)
+        const response = await db.query("UPDATE users SET mentor = $1 WHERE user_id = $2 RETURNING *;", [mentor, this.user_id])
+        if(!response.rowCount) throw new Error('Update mentor error')
+
+        return new User(response.rows[0])
+    }
 }
 
 module.exports = User;

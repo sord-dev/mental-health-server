@@ -11,7 +11,7 @@ CREATE TABLE users (
   created_at timestamp DEFAULT CURRENT_TIMESTAMP,
   dabloons INT DEFAULT 0,
   goals JSON,
-  mentor VARCHAR(120) DEFAULT '53f57cad12a2c697226b96c10f12db1d',
+  mentor VARCHAR(120) DEFAULT 'Morgan',
   PRIMARY KEY (user_id)
 );
 

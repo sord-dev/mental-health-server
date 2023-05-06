@@ -27,6 +27,20 @@ module.exports.updateGoals = async (req, res) => {
     }
 }
 
+module.exports.updateMentor = async (req, res) => {
+    let { user_id, mentor } = req.body;
+
+    try {
+        const user = await User.findById(user_id);
+        const updated = await user.updateMentor(mentor);
+
+
+        res.status(200).json({ ...updated, password: null })
+    } catch (error) {
+        res.json(error)
+    }
+}
+
 module.exports.getById = async (req, res) => {
     try {
         const userId = req.params.id;
