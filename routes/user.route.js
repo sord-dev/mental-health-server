@@ -6,6 +6,7 @@ router.patch('/pts', controller.updatePoints);
 router.patch('/goals', controller.updateGoals);
 
 router.post('/st/goals', controller.generateSTGoals);
+router.patch('/st/goals', controller.completeSTGoal);
 
 router.patch('/mentor', controller.updateMentor);
 router.get("/:id", controller.getById)
