@@ -10,6 +10,7 @@ CREATE TABLE users (
   created_at timestamp DEFAULT CURRENT_TIMESTAMP,
   dabloons INT DEFAULT 0,
   goals JSON,
+  st_goals JSON DEFAULT '[]',
   mentor VARCHAR(120) DEFAULT 'Morgan',
   is_admin BOOLEAN DEFAULT FALSE,
   owned_mentors JSON DEFAULT '[]',

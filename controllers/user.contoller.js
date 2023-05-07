@@ -57,10 +57,13 @@ module.exports.generateSTGoals = async (req, res) => {
     try {
         const user = await User.findById(req.body.user_id)
         const goals = await ChatGPT.generateShortTerm(user);
-
-        res.status(200).json(goals)
+        
+        const updatedUser = await user.updateShortTerm(goals)
+        
+        res.status(200).json(updatedUser)
     } catch (error) {
-        res.json(error)
+        console.log(error);
+        res.status(500).json(error)
     }
 
 }

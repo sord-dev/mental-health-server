@@ -26,9 +26,9 @@ const ChatGPT = {
         let userGoals = user?.goals?.length ? user.goals.join(' ') : null;
         
         let dynamicPrompt =
-            `Generate 5 daily challenges as a goal array i can do throughout the day to improve my wellbeing taking into consideration these goals: ${userGoals}`
+            `Generate 5 random daily challenges as a goal array i can do throughout the day, taking into consideration these goals: ${userGoals}`
 
-        const prompt = userGoals ? dynamicPrompt : 'Generate 5 daily challenges as a goal array'
+        const prompt = userGoals ? dynamicPrompt : 'Generate 5 random daily challenges as a goal array'
 
         const res = await OpenAPI.command({ type: 'DataFormat/ShortTerm', content: prompt });
 
