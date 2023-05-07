@@ -62,7 +62,22 @@ module.exports.generateSTGoals = async (req, res) => {
         
         res.status(200).json(updatedUser)
     } catch (error) {
-        console.log(error);
+        res.status(500).json(error)
+    }
+
+}
+
+module.exports.completeSTGoal = async (req, res) => {
+    try {
+        const user = await User.findById(req.body.user_id)
+        let goals = user.st_goals;
+        let newGoals = goals.map(g => g.id == req.body.goal_id ? {...g, completed: true} : g)
+        
+        const updatedUser = await user.updateShortTerm(newGoals)
+        
+        res.status(200).json(updatedUser)
+    } catch (error) {
+        console.log('error ', error);
         res.status(500).json(error)
     }
 
