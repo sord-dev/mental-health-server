@@ -1,4 +1,5 @@
 const User = require('../models/User.js')
+const ChatGPT = require('../models/ChatGPT.js')
 
 module.exports.updatePoints = async (req, res) => {
     let { user_id, points } = req.body;
@@ -50,4 +51,16 @@ module.exports.getById = async (req, res) => {
     } catch (err) {
         res.status(400).json({ error: err.message })
     }
+}
+
+module.exports.generateSTGoals = async (req, res) => {
+    try {
+        const user = await User.findById(req.body.user_id)
+        const goals = await ChatGPT.generateShortTerm(user);
+
+        res.status(200).json(goals)
+    } catch (error) {
+        res.json(error)
+    }
+
 }

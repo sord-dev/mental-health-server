@@ -21,6 +21,20 @@ const ChatGPT = {
 
         return parseGPT(res.choices[0].message.content);
     },
+
+    generateShortTerm: async (user) => {
+        let userGoals = user?.goals?.length ? user.goals.join(' ') : null;
+        
+        let dynamicPrompt =
+            `Generate 5 daily challenges as a goal array i can do throughout the day to improve my wellbeing taking into consideration these goals: ${userGoals}`
+
+        const prompt = userGoals ? dynamicPrompt : 'Generate 5 daily challenges as a goal array'
+
+        const res = await OpenAPI.command({ type: 'DataFormat/ShortTerm', content: prompt });
+
+
+        return JSON.parse(res.choices[0].message.content);
+    }
 }
 
 module.exports = ChatGPT;
