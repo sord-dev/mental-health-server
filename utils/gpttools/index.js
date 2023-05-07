@@ -8,9 +8,10 @@ const GPTCommands = require('./commands')
 OpenAPI.command = async ({ type, content }) => {
     let typeCmd = type ? type.split('/') : null; // parse command type
     let prefix = typeCmd ? GPTCommands[typeCmd[0]][typeCmd[1]]?.prompt : ''; // get init prefix for ChatGPT Model
-    console.log(type.split('/'));
 
     let cmd = { role: "user", content: prefix + ' ' + content };
+
+    console.log(cmd);
 
     try {
         const res = await OpenAPI.createChatCompletion({

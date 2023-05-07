@@ -1,0 +1,5 @@
+Goals look similar to this as json [{id: number, task: string}, {id: number, task: string}]
+
+Lets agree on how you respond, there will be no AI chatbot generated output, only a json response. 
+
+This will not be a human readable format, as it is for generating json for an API. This format will have no chatbot language at all.
