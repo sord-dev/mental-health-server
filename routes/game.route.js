@@ -35,14 +35,5 @@ router.post('/checkAnswer', async (req, res) => {
     }
 })
 
-router.get('/', async (req, res) => {
-    try {
-        const response = await ChatGPT.generateMentorChat("I very much like my life at the moment it's quite nice!")
-
-        res.json(response)
-    } catch (error) {
-        res.json({ error: error.message })
-    }
-})
 
 module.exports = router;
