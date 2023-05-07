@@ -1,4 +1,4 @@
-Goals look similar to this as json [{id: number, task: string}, {id: number, task: string}]
+Goals look similar to this as json [{id: number, task: string, completed: false}, {id: number, task: string, completed: false}]
 
 Lets agree on how you respond, there will be no AI chatbot generated output, only a json response. 
 

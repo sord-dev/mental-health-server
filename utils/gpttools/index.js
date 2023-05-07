@@ -11,8 +11,6 @@ OpenAPI.command = async ({ type, content }) => {
 
     let cmd = { role: "user", content: prefix + ' ' + content };
 
-    console.log(cmd);
-
     try {
         const res = await OpenAPI.createChatCompletion({
             model: "gpt-3.5-turbo",
