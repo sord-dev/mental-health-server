@@ -2,8 +2,8 @@ const router = require('express').Router();
 const ChatGPT = require('../models/ChatGPT');
 const MentorHistory = require('../models/MentorHistory');
 
-let personailites = Object.keys(AiPersonalities);
 const AiPersonalities = require('../utils/gpttools/commands/aimentors');
+let personailites = Object.keys(AiPersonalities);
 
 const filterDefaults = items => {
     return items.map(([name, p]) => (p.price && { name, price: p.price, category: p.category })).filter(i => !!i == true)
