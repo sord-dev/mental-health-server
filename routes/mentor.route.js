@@ -26,12 +26,20 @@ router.post('/chat', async (req, res) => { // {message: {content: input, role: '
 
         let botResponse = { role: 'assistant', content: response, mentor }
 
-        await userHistory.save(userMessage, botResponse);
+        const history = await userHistory.save(userMessage, botResponse);
 
-        res.status(200).json({ message: response });
+        res.status(200).json({ message: response, history: history.history[mentor] });
     } catch (error) {
         res.json({ error: error.message })
     }
+})
+
+router.post('/init', async (req,res) => {
+    let userHistory = await MentorHistory.get(req.body.user_id);
+
+    if(!userHistory) return res.status(404).json([]);
+
+    return res.status(200).json({ history: userHistory.history[req.body.mentor] });
 })
 
 router.get('/info', async (req, res) => {
@@ -40,7 +48,7 @@ router.get('/info', async (req, res) => {
 
 router.get('/prices', async (req, res) => { // a route to get all the prices of items
     const filterDefaults = items => {
-        return items.map(([name, p]) => (p.price && { name, price: p.price, category: p.category })).filter(i => !!i == true)
+        return items.map(([name, p]) => (p.price && { name, price: p.price, category: p.category, thumbnail: p.thumbnail })).filter(i => !!i == true)
     };
     
     let personailtiesData = Object.entries(AiPersonalities) // get all items entries
