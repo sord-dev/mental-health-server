@@ -5,15 +5,10 @@ const MentorHistory = require('../models/MentorHistory');
 const AiPersonalities = require('../utils/gpttools/commands/aimentors');
 let personailites = Object.keys(AiPersonalities);
 
-const filterDefaults = items => {
-    return items.map(([name, p]) => (p.price && { name, price: p.price, category: p.category })).filter(i => !!i == true)
-};
-
-
-
-
 router.post('/chat', async (req, res) => { // {message: {content: input, role: 'user'}, mentor: 'David' }
     let { user_id, message, mentor } = req.body;
+
+    if(!user_id || !message || !mentor) res.status(422).json({error: 'mentor, user_id and message are required.'})
 
     let userHistory = await MentorHistory.get(user_id);
     let mem = userHistory.history;
@@ -44,6 +39,10 @@ router.get('/info', async (req, res) => {
 })
 
 router.get('/prices', async (req, res) => { // a route to get all the prices of items
+    const filterDefaults = items => {
+        return items.map(([name, p]) => (p.price && { name, price: p.price, category: p.category })).filter(i => !!i == true)
+    };
+    
     let personailtiesData = Object.entries(AiPersonalities) // get all items entries
     let info = filterDefaults(personailtiesData) // make an object omitting the prompt value and values with no price (default items)
 
