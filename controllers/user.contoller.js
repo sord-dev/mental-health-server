@@ -34,13 +34,13 @@ module.exports.updateMentor = async (req, res) => {
 
     try {
         const user = await User.findById(user_id);
-        console.log("user: ", user)
+        
         const history = await MentorHistory.get(user_id)
         const updated = await user.updateMentor(mentor);
 
         let mem = history?.history[mentor] ? [...history.history[mentor]] : []
 
-        console.log("mem: ", mem)
+        
 
         res.status(200).json({ user: {...updated, password: null}, history: mem} )
     } catch (error) {
