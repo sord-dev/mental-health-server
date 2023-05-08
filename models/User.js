@@ -2,7 +2,7 @@ const { genSalt, hash, compare } = require('bcrypt');
 const db = require('../config/postgresdb.js');
 
 class User {
-    constructor({ user_id, username, password, created_at, dabloons, goals, mentor, is_admin, owned_mentors, st_goals }) {
+    constructor({ user_id, username, password, created_at, dabloons, goals, mentor, is_admin, owned_mentors, st_goals, history_id }) {
         this.user_id = user_id;
         this.username = username;
         this.password = password;
@@ -13,6 +13,7 @@ class User {
         this.is_admin = is_admin;
         this.owned_mentors = owned_mentors;
         this.st_goals = st_goals;
+        this.history_id = history_id;
     }
 
     static async create(data) {
@@ -24,9 +25,11 @@ class User {
 
         // insert user into db
         const response = await db.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *;', [username, hashed])
-        if (!response.rowCount) throw new Error('Creation Error')
+        const response1 = await db.query('INSERT INTO user_mentor_history (user_id, history) VALUES ($1, $2) RETURNING history_id;', [response.rows[0].user_id, JSON.stringify([])])
+        if (!response.rowCount) throw new Error('User Creation Error')
+        if (!response1.rowCount) throw new Error('User Mentor History Creation Error')
 
-        return new User(response.rows[0])
+        return new User({...response.rows[0], history_id: response1.rows[0].history_id})
     }
 
     static async comparePassword(input, hashed) {

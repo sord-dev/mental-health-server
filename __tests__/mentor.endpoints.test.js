@@ -1,6 +1,6 @@
 const { createDbEnv, populateDbEnv, destroyDbEnv } = require('../config/setup-test-db.js');
 const request = require('supertest');
-const api = require('../api.js');
+const api = require('../app.js');
 const server = request(api);
 
 describe('Mentor Endpoint Tests', () => {
