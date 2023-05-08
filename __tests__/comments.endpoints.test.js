@@ -1,6 +1,6 @@
 const { createDbEnv, populateDbEnv, destroyDbEnv } = require('../config/setup-test-db');
 const request = require('supertest');
-const api = require('../api');
+const api = require('../app');
 const server = request(api);
 const Comment = require("../models/Comment")
 
