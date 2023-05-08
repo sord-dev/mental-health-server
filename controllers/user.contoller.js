@@ -48,6 +48,22 @@ module.exports.updateMentor = async (req, res) => {
     }
 }
 
+module.exports.updateOwnedMentors = async (req, res) => {
+    let { user_id, mentor } = req.body;
+
+    try {
+        const user = await User.findById(user_id);
+        let mentors = user.owned_mentors;
+        mentors.push(mentor);
+
+        const updated = await user.updateOwnedMentors(mentors);
+
+        res.status(200).json({...updated, password: null} )
+    } catch (error) {
+        res.json(error)
+    }
+}
+
 module.exports.getById = async (req, res) => {
     try {
         const userId = req.params.id;

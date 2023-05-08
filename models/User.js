@@ -75,8 +75,14 @@ class User {
     }
 
     async updateMentor(mentor) {
-        console.log(mentor, this.user_id)
         const response = await db.query("UPDATE users SET mentor = $1 WHERE user_id = $2 RETURNING *;", [mentor, this.user_id])
+        if (!response.rowCount) throw new Error('Update mentor error')
+
+        return new User(response.rows[0])
+    }
+
+    async updateOwnedMentors(mentors) {
+        const response = await db.query("UPDATE users SET owned_mentors = $1 WHERE user_id = $2 RETURNING *;", [JSON.stringify(mentors), this.user_id])
         if (!response.rowCount) throw new Error('Update mentor error')
 
         return new User(response.rows[0])
