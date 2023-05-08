@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS shop CASCADE;
 DROP TABLE IF EXISTS forums CASCADE;
 DROP TABLE IF EXISTS comments CASCADE;
+DROP TABLE IF EXISTS user_mentor_history CASCADE;
 
 CREATE TABLE users (
   user_id INT GENERATED ALWAYS AS IDENTITY,
@@ -60,3 +61,13 @@ CREATE TABLE comments (
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (forum_id) REFERENCES forums(forum_id) ON DELETE CASCADE
 );
+
+CREATE TABLE user_mentor_history (
+    history_id INT GENERATED ALWAYS AS IDENTITY,
+    user_id INT NOT NULL,
+    history JSON DEFAULT '{}',
+    PRIMARY KEY (history_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+INSERT INTO user_mentor_history(user_id) VALUES (1), (2), (3), (4);
