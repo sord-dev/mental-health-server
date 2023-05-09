@@ -2,7 +2,6 @@ const router = require('express').Router();
 const ChatGPT = require('../models/ChatGPT');
 const MentorHistory = require('../models/MentorHistory');
 const User = require('../models/User');
-var sentenceCleaner = require('sentence-cleaner');
 
 const AiPersonalities = require('../utils/gpttools/commands/aimentors');
 let personailites = Object.keys(AiPersonalities);
@@ -33,12 +32,9 @@ router.post('/chat', async (req, res) => { // {message: {content: input, role: '
     if (!user_id || !message || !mentor) return res.status(422).json({ error: 'mentor, user_id and message are required.' })
     let userMessage = {...message, content: sentenceCleaner(message.content)};
 
-    // parse all previous messages into a string
     let userHistory = await MentorHistory.get(user_id);
     // ask chatgpt to continue this conversation given all the previous messages
-
     let parsedHistory = continueConversation(userHistory.history[mentor], userMessage, mentor)
-
     // when messages get too long
     // summarise conversation and save messages to db
     try {
@@ -52,9 +48,9 @@ router.post('/chat', async (req, res) => { // {message: {content: input, role: '
     }
 })
 
+
 router.post('/init', async (req, res) => {
     let userHistory = await MentorHistory.get(req.body.user_id);
-
     if (!userHistory) return res.status(404).json([]);
 
     return res.status(200).json({ history: userHistory.history[req.body.mentor] });
