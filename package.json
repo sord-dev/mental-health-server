@@ -2,11 +2,11 @@
   "name": "mh-api",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node .",
     "setup-db": "node ./config/setup-db.js",
-    "dev": "nodemon app.js",
+    "dev": "nodemon .",
     "test": "jest --force-exit --verbose",
     "coverage": "jest --forceExit --coverage --coverageReporters=text-summary --verbose"
   },

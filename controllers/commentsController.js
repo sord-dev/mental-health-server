@@ -11,12 +11,10 @@ async function getByPostId(req, res) {
 }
 
 async function create(req, res) {
-  const postId = req.params.id;
   const data = req.body;
   try {
-    const comment = await Comment.create(data, postId);
+    const comment = await Comment.create(data);
     res.status(201).json({
-      message: 'Comment created successfully',
       comment,
     });
   } catch (err) {
