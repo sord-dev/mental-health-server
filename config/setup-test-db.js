@@ -10,7 +10,6 @@ const populateDbEnv = async () => {
     await db.query("INSERT INTO pg_temp.users (username, password) VALUES ('admin', '$2b$10$9DvfbVwvWt7.KYKBm8/x8.fAc4cW8zkX9izaKVitBl8oYYM9i3GJG');");
     await db.query("INSERT INTO pg_temp.forums (title, content, user_id) VALUES ($1, $2, $3)", ["title test", "content test", 1]);
     await db.query("INSERT INTO pg_temp.comments (comment, forum_id, user_id) VALUES ($1, $2, $3)", ["content test", 1, 1]);
-
 }
 
 const destroyDbEnv = async () => {

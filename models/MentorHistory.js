@@ -16,6 +16,21 @@ class MentorHistory {
         return new MentorHistory(response.rows[0]);
     }
 
+    async clear(mentor) {
+        if(!mentor) throw new Error('No mentor provided')
+        let mentorMemory = this.history[mentor];
+
+        if (mentorMemory.length) {
+            this.history[mentor] = []
+        }
+
+        let response = await db.query('UPDATE user_mentor_history SET history = $1 WHERE user_id = $2 RETURNING *;', [JSON.stringify(this.history), this.user_id])
+        if (!response.rowCount) throw new Error('Error Updating user conversation history');
+
+
+        return new MentorHistory(response.rows[0]);
+    }
+
     async save(userMessage, botResponse) {
         let { mentor } = botResponse;
         let mentorMemory = this.history[mentor];
