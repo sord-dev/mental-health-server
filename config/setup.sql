@@ -14,15 +14,15 @@ CREATE TABLE users (
   st_goals JSON DEFAULT '[]',
   mentor VARCHAR(120) DEFAULT 'Morgan',
   is_admin BOOLEAN DEFAULT FALSE,
-  owned_mentors JSON DEFAULT '[]',
+  owned_mentors JSON DEFAULT '["Morgan"]',
   PRIMARY KEY (user_id)
 );
 
 INSERT INTO users(username, password, dabloons, goals, is_admin)
 VALUES ('stef', '$2b$10$9DvfbVwvWt7.KYKBm8/x8.fAc4cW8zkX9izaKVitBl8oYYM9i3GJG', 999999999, '[]', true),
 ('banana', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 999999999, '[]', true),
-('bart', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 0, '[]', false),
-('mihai', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 0, '[]', false);
+('bart', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 999999999, '[]', true),
+('mihai', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 999999999, '[]', true);
 
 CREATE TABLE shop (
     shop_id INT GENERATED ALWAYS AS IDENTITY,
