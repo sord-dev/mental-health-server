@@ -11,7 +11,7 @@ let continueConversation = (memory = [], message = '', mentor = '') => {
 
     let messages = memory.length ? (memory.map(m => (`${m.role == 'assistant' ? `${mentor}: ` : 'User: '} ${m.content}`)).join('\n') + `\nUser: ${message.content}\n ${mentor}:`) : false;
 
-    return `Without finishing off the input provided, continue this conversation: \n ${ messages || message.content}`;
+    return `Without finishing off the input provided, continue this conversation: \n ${ messages || "User: " +  message.content}`;
 }
 
 router.post('/chat/clear', async (req, res) => {
@@ -34,7 +34,6 @@ router.post('/chat', async (req, res) => { // {message: {content: input, role: '
     let userMessage = {...message, content: sentenceCleaner(message.content)};
 
     let userHistory = await MentorHistory.get(user_id);
-  
     // ask chatgpt to continue this conversation given all the previous messages
     let parsedHistory = continueConversation(userHistory.history[mentor], userMessage, mentor)
     // when messages get too long
