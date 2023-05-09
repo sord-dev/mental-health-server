@@ -2,14 +2,16 @@ const router = require('express').Router();
 const ChatGPT = require('../models/ChatGPT');
 const MentorHistory = require('../models/MentorHistory');
 const User = require('../models/User');
+var sentenceCleaner = require('sentence-cleaner');
 
 const AiPersonalities = require('../utils/gpttools/commands/aimentors');
 let personailites = Object.keys(AiPersonalities);
 
 let continueConversation = (memory = [], message = '', mentor = '') => {
-    console.log('what is going on ', memory);
-    let messages = memory ? memory.map(m => (`${m.role == 'assistant' ? `${mentor}: ` : 'User: '} ${m.content} User: ${message.content}`)).join('\n') + `\n ${mentor}:` : false;
-    return `Without finishing off the input provided, continue this conversation: \n ${messages || message.content}`;
+
+    let messages = memory.length ? (memory.map(m => (`${m.role == 'assistant' ? `${mentor}: ` : 'User: '} ${m.content}`)).join('\n') + `\nUser: ${message.content}\n ${mentor}:`) : false;
+
+    return `Without finishing off the input provided, continue this conversation: \n ${ messages || message.content}`;
 }
 
 router.post('/chat/clear', async (req, res) => {
@@ -24,19 +26,17 @@ router.post('/chat/clear', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
-
-
-
 })
 
 router.post('/chat', async (req, res) => { // {message: {content: input, role: 'user'}, mentor: 'David' }
     let { user_id, message, mentor } = req.body;
     if (!user_id || !message || !mentor) return res.status(422).json({ error: 'mentor, user_id and message are required.' })
-    let userMessage = message;
+    let userMessage = {...message, content: sentenceCleaner(message.content)};
 
     // parse all previous messages into a string
     let userHistory = await MentorHistory.get(user_id);
     // ask chatgpt to continue this conversation given all the previous messages
+
     let parsedHistory = continueConversation(userHistory.history[mentor], userMessage, mentor)
 
     // when messages get too long
@@ -45,8 +45,6 @@ router.post('/chat', async (req, res) => { // {message: {content: input, role: '
         const response = await ChatGPT.generateMentorChat(parsedHistory, mentor);
         let botResponse = { role: 'assistant', content: response, mentor }
         const history = await userHistory.save(userMessage, botResponse);
-
-        console.log(userHistory.history[mentor]);
 
         res.status(200).json({ message: response, history: history.history[mentor] });
     } catch (error) {
