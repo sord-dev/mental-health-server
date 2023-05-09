@@ -2,6 +2,7 @@ const router = require('express').Router();
 const ChatGPT = require('../models/ChatGPT');
 const MentorHistory = require('../models/MentorHistory');
 const User = require('../models/User');
+const sentenceCleaner = require('sentence-cleaner');
 
 const AiPersonalities = require('../utils/gpttools/commands/aimentors');
 let personailites = Object.keys(AiPersonalities);
