@@ -26,9 +26,6 @@ router.post('/chat/clear', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
-
-
-
 })
 
 router.post('/chat', async (req, res) => { // {message: {content: input, role: 'user'}, mentor: 'David' }
@@ -37,7 +34,8 @@ router.post('/chat', async (req, res) => { // {message: {content: input, role: '
     let userMessage = {...message, content: sentenceCleaner(message.content)};
 
     let userHistory = await MentorHistory.get(user_id);
-
+  
+    // ask chatgpt to continue this conversation given all the previous messages
     let parsedHistory = continueConversation(userHistory.history[mentor], userMessage, mentor)
     // when messages get too long
     // summarise conversation and save messages to db

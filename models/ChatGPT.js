@@ -11,6 +11,8 @@ const ChatGPT = {
     },
 
     generateMentorChat: async (prompt, mentor) => {
+        console.log(prompt)
+
         const res = await OpenAPI.command({ type: `AiPersonalities/${mentor}`, content: prompt });
 
         return res?.choices[0]?.message?.content

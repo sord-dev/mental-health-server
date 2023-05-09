@@ -52,6 +52,7 @@ async function create(req, res) {
 async function destroy(req, res) {
   try {
     const id = parseInt(req.params.id);
+    console.log(id)
     const forum = await Forum.getOneById(id);
 
     const result = await forum.destroy();
