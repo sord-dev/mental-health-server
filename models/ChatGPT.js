@@ -13,13 +13,13 @@ const ChatGPT = {
     generateMentorChat: async (prompt, mentor) => {
         const res = await OpenAPI.command({ type: `AiPersonalities/${mentor}`, content: prompt });
 
-        return res.choices[0].message.content
+        return res?.choices[0]?.message?.content
     },
 
     generateGamePromptResponse: async (prompt) => {
         const res = await OpenAPI.command({ type: 'Moderation/DalleGame', content: prompt });
 
-        return parseGPT(res.choices[0].message.content);
+        return parseGPT(res?.choices[0]?.message?.content);
     },
 
     generateShortTerm: async (user) => {
@@ -33,7 +33,7 @@ const ChatGPT = {
         const res = await OpenAPI.command({ type: 'DataFormat/ShortTerm', content: prompt });
 
 
-        return JSON.parse(res.choices[0].message.content);
+        return JSON.parse(res?.choices[0]?.message?.content);
     }
 }
 
