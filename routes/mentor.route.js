@@ -45,7 +45,7 @@ router.post('/chat', async (req, res) => { // {message: {content: input, role: '
 
         res.status(200).json({ message: response, history: history.history[mentor] });
     } catch (error) {
-        res.json({ error: error.message })
+        res.status(500).json({ error: error.message })
     }
 })
 

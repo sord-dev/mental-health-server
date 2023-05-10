@@ -56,8 +56,21 @@ class Forum {
       return null;
     }
   
-    return new Forum(result.rows[0]);
+    // Fetch the updated row to ensure it matches the updated values
+    const updatedQuery = {
+      text: 'SELECT * FROM forums WHERE forum_id=$1',
+      values: [id],
+    };
+  
+    const updatedResult = await db.query(updatedQuery);
+  
+    if (updatedResult.rows.length === 0) {
+      return null;
+    }
+  
+    return new Forum(updatedResult.rows[0]);
   }
+  
   
 
   async destroy() {

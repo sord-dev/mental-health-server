@@ -15,7 +15,6 @@ router.get('/initiateGame', async (req, res) => {
 router.post('/createImage', async (req, res) => {
     try {
         const givenPrompt = req.body.prompt;
-
         const prompt = await DallE.generateImage(givenPrompt)
         res.json(prompt)
     }
@@ -26,7 +25,6 @@ router.post('/createImage', async (req, res) => {
 
 router.post('/checkAnswer', async (req, res) => {
     try {
-        console.log(req.body)
         const prompt = await ChatGPT.generateGamePromptResponse(req.body.answer)
         res.json(prompt)
     }
@@ -35,5 +33,14 @@ router.post('/checkAnswer', async (req, res) => {
     }
 })
 
+router.post('/moderate', async (req, res) => {
+    try {
+        const prompt = await ChatGPT.generateModerationPromptResponse(req.body.prompt)
+        res.json(prompt)
+    }
+    catch (error) {
+        res.json({ error: error.message })
+    }
+})
 
 module.exports = router;
