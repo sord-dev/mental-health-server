@@ -13,7 +13,8 @@ const AiPersonalities = {
     "Princess Zelda": { prompt: fs.readFileSync(__dirname + "/zelda.txt").toString(), price: 250000, category: 'Fictional', thumbnail: "https://media.discordapp.net/attachments/1080425253030862849/1105810486433427547/Fomh8msXEAcC4F6.png" },
     "GLaDOS": { prompt: fs.readFileSync(__dirname + "/glados.txt").toString(), price: 1500000, category: 'Fictional', thumbnail: "https://cdn.discordapp.com/attachments/1080425253030862849/1105787295874949130/latest.png" },
     "Alyx Vance": { prompt: fs.readFileSync(__dirname + "/alyx.txt").toString(), price: 1500000, category: 'Fictional', thumbnail: "https://cdn.discordapp.com/attachments/1080425253030862849/1105792284714340393/latest.png" },
-    "Master Chief": { prompt: fs.readFileSync(__dirname + "/master-chief.txt").toString(), price: 1500000, category: 'Fictional', thumbnail: "https://cdn.discordapp.com/attachments/1080425253030862849/1105804376578203708/20211202_Halo_3x2.png" }
+    "Master Chief": { prompt: fs.readFileSync(__dirname + "/master-chief.txt").toString(), price: 1500000, category: 'Fictional', thumbnail: "https://cdn.discordapp.com/attachments/1080425253030862849/1105804376578203708/20211202_Halo_3x2.png" },
+    "Geralt of Rivia": { prompt: fs.readFileSync(__dirname + "/geralt.txt").toString(), price: 1500000, category: 'Fictional', thumbnail: "https://cdn.discordapp.com/attachments/1080425253030862849/1105909182785396887/1196195-white-hair-The-Witcher-The-White-Wolf-The-Witcher-3-Wild-Hunt.png" }
 }
 
 

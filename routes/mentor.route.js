@@ -89,11 +89,16 @@ router.post('/store', async (req, res) => { // a route to get all the prices of 
     res.status(200).json(info); // return priced item objects
 })
 
+router.get('/categories', async (req, res) => { // a route to get all the prices of items dependant on a user
+    let personailtiesData = Object.entries(AiPersonalities).map(([name, p]) => p.category) // get all items entries
+
+    res.status(200).json(personailtiesData.filter((p) => p != "Default")); // return priced item objects
+})
+
 router.post('/store/buy', async (req, res) => { // a route to get all the prices of items dependant on a user
     let user = await User.findById(req.body.user_id); // get user owned_mentors
     let personailtiesData = Object.entries(AiPersonalities) // get all items entries
     let mentor = AiPersonalities[req.body.mentor]; // get mentor
-
     user.owned_mentors.push({name: req.body.mentor, category: mentor.category}); // update owned mentor object
 
     let update1 = await user.updatePoints(-mentor.price); // update user dabloons (returns user)
