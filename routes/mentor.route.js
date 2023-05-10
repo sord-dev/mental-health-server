@@ -41,11 +41,12 @@ router.post('/chat', async (req, res) => { // {message: {content: input, role: '
     try {
         const response = await ChatGPT.generateMentorChat(parsedHistory, mentor);
         let botResponse = { role: 'assistant', content: response, mentor }
+
         const history = await userHistory.save(userMessage, botResponse);
 
         res.status(200).json({ message: response, history: history.history[mentor] });
     } catch (error) {
-        res.json({ error: error.message })
+        res.status(500).json({ error: error.message })
     }
 })
 
