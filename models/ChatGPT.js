@@ -11,15 +11,19 @@ const ChatGPT = {
     },
 
     generateMentorChat: async (prompt, mentor) => {
+        console.log(prompt)
+
         const res = await OpenAPI.command({ type: `AiPersonalities/${mentor}`, content: prompt });
 
-        return res.choices[0].message.content
+        if (!res?.choices) throw new Error("There was an error generating a response")
+
+        return res?.choices[0]?.message?.content
     },
 
     generateGamePromptResponse: async (prompt) => {
         const res = await OpenAPI.command({ type: 'Moderation/DalleGame', content: prompt });
 
-        return parseGPT(res.choices[0].message.content);
+        return parseGPT(res?.choices[0]?.message?.content);
     },
 
     generateShortTerm: async (user) => {
@@ -33,7 +37,7 @@ const ChatGPT = {
         const res = await OpenAPI.command({ type: 'DataFormat/ShortTerm', content: prompt });
 
 
-        return JSON.parse(res.choices[0].message.content);
+        return JSON.parse(res?.choices[0]?.message?.content);
     }
 }
 

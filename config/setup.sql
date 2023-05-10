@@ -18,11 +18,13 @@ CREATE TABLE users (
   PRIMARY KEY (user_id)
 );
 
-INSERT INTO users(username, password, dabloons, goals, is_admin)
-VALUES ('stef', '$2b$10$9DvfbVwvWt7.KYKBm8/x8.fAc4cW8zkX9izaKVitBl8oYYM9i3GJG', 999999999, '[]', true),
-('banana', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 999999999, '[]', true),
-('bart', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 0, '[]', false),
-('mihai', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 0, '[]', false);
+INSERT INTO users(username, password, dabloons, goals, is_admin, owned_mentors)
+VALUES ('stef', '$2b$10$9DvfbVwvWt7.KYKBm8/x8.fAc4cW8zkX9izaKVitBl8oYYM9i3GJG', 999999999, '[]', true, '["Morgan"]'),
+('banana', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 999999999, '[]', true, '["Morgan"]'),
+('bart', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 999999999, '[]', true, '["Morgan"]'),
+('mihai', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 999999999, '[]', true, '["Morgan"]'),
+('admintest', 'test1', 999999999, '[]', true, '["Morgan"]');
+
 
 CREATE TABLE shop (
     shop_id INT GENERATED ALWAYS AS IDENTITY,
@@ -71,3 +73,5 @@ CREATE TABLE user_mentor_history (
 );
 
 INSERT INTO user_mentor_history(user_id) VALUES (1), (2), (3), (4);
+INSERT INTO forums(title, content, user_id)
+VALUES ('test title', 'test content', 1);

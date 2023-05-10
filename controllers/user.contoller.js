@@ -1,5 +1,6 @@
 const User = require('../models/User.js')
-const ChatGPT = require('../models/ChatGPT.js')
+const ChatGPT = require('../models/ChatGPT.js');
+const MentorHistory = require('../models/MentorHistory.js');
 
 module.exports.updatePoints = async (req, res) => {
     let { user_id, points } = req.body;
@@ -33,10 +34,31 @@ module.exports.updateMentor = async (req, res) => {
 
     try {
         const user = await User.findById(user_id);
+        
+        const history = await MentorHistory.get(user_id)
         const updated = await user.updateMentor(mentor);
 
+        let mem = history?.history[mentor] ? [...history.history[mentor]] : []
 
-        res.status(200).json({ ...updated, password: null })
+        
+
+        res.status(200).json({ user: {...updated, password: null}, history: mem} )
+    } catch (error) {
+        res.json(error)
+    }
+}
+
+module.exports.updateOwnedMentors = async (req, res) => {
+    let { user_id, mentor } = req.body;
+
+    try {
+        const user = await User.findById(user_id);
+        let mentors = user.owned_mentors;
+        mentors.push(mentor);
+
+        const updated = await user.updateOwnedMentors(mentors);
+
+        res.status(200).json({...updated, password: null} )
     } catch (error) {
         res.json(error)
     }

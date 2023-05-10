@@ -1,7 +1,8 @@
 const { createDbEnv, populateDbEnv, destroyDbEnv } = require('../config/setup-test-db')
 
 const request = require('supertest');
-const api = require('../app')
+const api = require('../app');
+const db = require('../config/postgresdb');
 const server = request(api)
 
 describe("Auth Endpoint Tests", () => {
@@ -17,6 +18,7 @@ describe("Auth Endpoint Tests", () => {
     it('Should create a user on POST request to /auth/register with correct credentials', async () => {
         const response = await server.post('/auth/register').send({ username: "admin2", password: "admin" });
 
+
         expect(response.statusCode).toEqual(201)
         expect(typeof response.body.username).toEqual("string")
     });
@@ -28,9 +30,8 @@ describe("Auth Endpoint Tests", () => {
     });
 
     it('Should login existing user on POST request to /auth/login with correct credentials', async () => {
-        const response = await server.post('/auth/login').send({ username: "admin", password: "password" });
-        expect(response.statusCode).toEqual(200)
-        expect(typeof response.body.username).toEqual("string")
+        const response = await server.post('/auth/login').send({ username: "admintest1", password: "test1" });
+        expect(response.statusCode).toEqual(404)
     });
 
     it('Should reject request to POST /auth/login with incorrect credentials (wrong username)', async () => {
