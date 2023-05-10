@@ -19,11 +19,11 @@ CREATE TABLE users (
 );
 
 INSERT INTO users(username, password, dabloons, goals, is_admin, owned_mentors)
-VALUES ('stef', '$2b$10$9DvfbVwvWt7.KYKBm8/x8.fAc4cW8zkX9izaKVitBl8oYYM9i3GJG', 999999999, '[]', true, '["Morgan"]'),
-('banana', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 999999999, '[]', true, '["Morgan"]'),
-('bart', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 999999999, '[]', true, '["Morgan"]'),
-('mihai', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 999999999, '[]', true, '["Morgan"]'),
-('admintest', 'test1', 999999999, '[]', true, '["Morgan"]');
+VALUES ('stef', '$2b$10$9DvfbVwvWt7.KYKBm8/x8.fAc4cW8zkX9izaKVitBl8oYYM9i3GJG', 999999999, '[]', true, '[{ "name": "Morgan", "category": "Default" }]'),
+('banana', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 999999999, '[]', true, '[{ "name": "Morgan", "category": "Default" }]'),
+('bart', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 999999999, '[]', true, '[{ "name": "Morgan", "category": "Default" }]'),
+('mihai', '$2b$10$ARvS2TEGm9ct6uIGSscHF.TMMIp60wEmRMXSM3N/IpT4nQIdIM5ce', 999999999, '[]', true, '[{ "name": "Morgan", "category": "Default" }]'),
+('admintest', 'test1', 999999999, '[]', true, '[{ "name": "Morgan", "category": "Default" }]');
 
 
 CREATE TABLE shop (
