@@ -55,7 +55,7 @@ router.post('/init', async (req, res) => {
     let userHistory = await MentorHistory.get(req.body.user_id);
     if (!userHistory) return res.status(404).json([]);
 
-    return res.status(200).json({ history: userHistory.history[req.body.mentor] });
+    return res.status(200).json({ history: userHistory.history[req.body.mentor], mentor_details: AiPersonalities[req.body.mentor.thumbnail] });
 })
 
 router.get('/info', async (req, res) => {

@@ -1,6 +1,7 @@
 const User = require('../models/User.js')
 const ChatGPT = require('../models/ChatGPT.js');
 const MentorHistory = require('../models/MentorHistory.js');
+const { AiPersonalities } = require('../utils/gpttools/commands/index.js');
 
 module.exports.updatePoints = async (req, res) => {
     let { user_id, points } = req.body;
@@ -40,9 +41,7 @@ module.exports.updateMentor = async (req, res) => {
 
         let mem = history?.history[mentor] ? [...history.history[mentor]] : []
 
-        
-
-        res.status(200).json({ user: {...updated, password: null}, history: mem} )
+        res.status(200).json({ user: {...updated, password: null}, history: mem, mentor_details: AiPersonalities[mentor].thumbnail} )
     } catch (error) {
         res.json(error)
     }
