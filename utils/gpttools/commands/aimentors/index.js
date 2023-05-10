@@ -11,7 +11,8 @@ const AiPersonalities = {
     "Taylor Swift": { prompt: fs.readFileSync(__dirname + "/swift.txt").toString(), price: 200000, category: 'Musician', thumbnail: "https://cdn.discordapp.com/attachments/1080425253030862849/1105139947859619972/taylor_1.png" },
     "Morgan Freeman": { prompt: fs.readFileSync(__dirname + "/freeman.txt").toString(), price: 250000, category: 'Nice', thumbnail: "https://media.discordapp.net/attachments/1080425253030862849/1105142940260651098/morgan_freeman.png" },
     "GLaDOS": { prompt: fs.readFileSync(__dirname + "/glados.txt").toString(), price: 1500000, category: 'Fictional', thumbnail: "https://cdn.discordapp.com/attachments/1080425253030862849/1105787295874949130/latest.png" },
-    "Alyx Vance": { prompt: fs.readFileSync(__dirname + "/alyx.txt").toString(), price: 1500000, category: 'Fictional', thumbnail: "https://cdn.discordapp.com/attachments/1080425253030862849/1105792284714340393/latest.png" }
+    "Alyx Vance": { prompt: fs.readFileSync(__dirname + "/alyx.txt").toString(), price: 1500000, category: 'Fictional', thumbnail: "https://cdn.discordapp.com/attachments/1080425253030862849/1105792284714340393/latest.png" },
+    "Master Chief": { prompt: fs.readFileSync(__dirname + "/master-chief.txt").toString(), price: 1500000, category: 'Fictional', thumbnail: "https://cdn.discordapp.com/attachments/1080425253030862849/1105804376578203708/20211202_Halo_3x2.png" }
 }
 
 
