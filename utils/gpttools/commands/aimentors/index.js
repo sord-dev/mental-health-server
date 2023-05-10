@@ -10,7 +10,7 @@ const AiPersonalities = {
     "William Shakespeare": { prompt: fs.readFileSync(__dirname + "/shakespeare.txt").toString(), price: 200000, category: 'Wise', thumbnail: "https://media.discordapp.net/attachments/1080425253030862849/1105146956373835927/3411cd0986c340a9bf980edc4f3d85f4.png" },
     "Taylor Swift": { prompt: fs.readFileSync(__dirname + "/swift.txt").toString(), price: 200000, category: 'Musician', thumbnail: "https://cdn.discordapp.com/attachments/1080425253030862849/1105139947859619972/taylor_1.png" },
     "Morgan Freeman": { prompt: fs.readFileSync(__dirname + "/freeman.txt").toString(), price: 250000, category: 'Nice', thumbnail: "https://media.discordapp.net/attachments/1080425253030862849/1105142940260651098/morgan_freeman.png" },
-    "Andrew Tate": { prompt: fs.readFileSync(__dirname + "/tate.txt").toString(), price: 250000, category: 'Nice', thumbnail: "https://cdn.discordapp.com/attachments/1080425253030862849/1105585953713688778/1672095530166_z175wzrd5rdnqtkisedhxs0azihbjrgf_600x600.png" }
+    "Princess Zelda": { prompt: fs.readFileSync(__dirname + "/zelda.txt").toString(), price: 250000, category: 'Fictional', thumbnail: "https://media.discordapp.net/attachments/1080425253030862849/1105810486433427547/Fomh8msXEAcC4F6.png" }
 }
 
 
