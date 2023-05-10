@@ -15,6 +15,8 @@ const ChatGPT = {
 
         const res = await OpenAPI.command({ type: `AiPersonalities/${mentor}`, content: prompt });
 
+        if (!res?.choices) throw new Error("There was an error generating a response")
+
         return res?.choices[0]?.message?.content
     },
 
