@@ -22,6 +22,7 @@
     "morgan": "^1.10.0",
     "openai": "^3.2.1",
     "pg": "^8.10.0",
+    "sentence-cleaner": "^1.0.0",
     "supertest": "^6.3.3"
   },
   "devDependencies": {
