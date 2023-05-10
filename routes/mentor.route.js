@@ -10,7 +10,7 @@ let personailites = Object.keys(AiPersonalities);
 let continueConversation = (memory = [], message = '', mentor = '') => {
     let messages = memory.length ? (memory.map(m => (`${m.role == 'assistant' ? `${mentor}: ` : 'User: '} ${m.content}`)).join('\n') + `\nUser: ${message.content}\n ${mentor}:`) : false;
 
-    return `Without finishing off the input provided, continue this conversation: \n ${messages || 'User: ' + message.content}`;
+    return `Without finishing off the input provided, continue this conversation: \n ${ messages || "User: " +  message.content}`;
 }
 
 router.post('/chat/clear', async (req, res) => {
