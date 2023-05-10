@@ -8,7 +8,6 @@ const AiPersonalities = require('../utils/gpttools/commands/aimentors');
 let personailites = Object.keys(AiPersonalities);
 
 let continueConversation = (memory = [], message = '', mentor = '') => {
-
     let messages = memory.length ? (memory.map(m => (`${m.role == 'assistant' ? `${mentor}: ` : 'User: '} ${m.content}`)).join('\n') + `\nUser: ${message.content}\n ${mentor}:`) : false;
 
     return `Without finishing off the input provided, continue this conversation: \n ${ messages || "User: " +  message.content}`;
@@ -31,9 +30,10 @@ router.post('/chat/clear', async (req, res) => {
 router.post('/chat', async (req, res) => { // {message: {content: input, role: 'user'}, mentor: 'David' }
     let { user_id, message, mentor } = req.body;
     if (!user_id || !message || !mentor) return res.status(422).json({ error: 'mentor, user_id and message are required.' })
-    let userMessage = {...message, content: sentenceCleaner(message.content)};
+    let userMessage = { ...message, content: sentenceCleaner(message.content) };
 
     let userHistory = await MentorHistory.get(user_id);
+
     // ask chatgpt to continue this conversation given all the previous messages
     let parsedHistory = continueConversation(userHistory.history[mentor], userMessage, mentor)
     // when messages get too long
@@ -90,12 +90,17 @@ router.post('/store', async (req, res) => { // a route to get all the prices of 
 
 router.post('/store/buy', async (req, res) => { // a route to get all the prices of items dependant on a user
     let user = await User.findById(req.body.user_id); // get user owned_mentors
+    let personailtiesData = Object.entries(AiPersonalities) // get all items entries
     let mentor = AiPersonalities[req.body.mentor]; // get mentor
 
-    user.owned_mentors.push(mentor);
-    let newPoints = user.dabloons -= mentor.price;
+    user.owned_mentors.push(req.body.mentor); // update owned mentor object
 
-    res.status(200).json(user); // return priced item objects
+    let update1 = await user.updatePoints(-mentor.price); // update user dabloons (returns user)
+    let update2 = await user.updateOwnedMentors(user.owned_mentors); // update user owned mentors (returns user)
+
+    let info = filterOwnedMentors(personailtiesData, user.owned_mentors)
+
+    res.status(200).json({ updatedUser: { ...update2, password: null, dabloons: update1.dabloons }, items: info }); // return priced item objects
 })
 
 module.exports = router;
