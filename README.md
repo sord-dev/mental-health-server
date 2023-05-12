@@ -2,6 +2,12 @@
 
 Welcome to the backend API documentation for our mental health web application! This documentation provides an overview of the API endpoints, request/response formats, and authentication mechanisms used by our application's backend.
 
+## Hosted Application
+Find the hosted application [here.](https://serenity-ai.netlify.app)
+
+![image](https://github.com/sord-dev/mental-health-server/assets/75338985/743d33f7-8914-462f-91d4-1612d18203cd)
+
+
 ## Technologies Used
 
 Our backend is built using the following technologies:
