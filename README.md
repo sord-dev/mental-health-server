@@ -7,6 +7,7 @@ Find the hosted application [here.](https://serenity-ai.netlify.app)
 
 ![image](https://github.com/sord-dev/mental-health-server/assets/75338985/743d33f7-8914-462f-91d4-1612d18203cd)
 
+![image](https://github.com/sord-dev/mental-health-server/assets/75338985/4a8c6c35-3953-41d2-b80e-e4088328779e)
 
 ## Technologies Used
 
