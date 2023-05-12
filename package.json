@@ -2,21 +2,31 @@
   "name": "mh-api",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node .",
+    "setup-db": "node ./config/setup-db.js",
+    "dev": "nodemon .",
+    "test": "jest --force-exit --verbose",
+    "coverage": "jest --forceExit --coverage --coverageReporters=text-summary --verbose"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "http-errors": "^2.0.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "openai": "^3.2.1",
+    "pg": "^8.10.0",
+    "sentence-cleaner": "^1.0.0",
+    "supertest": "^6.3.3"
   },
   "devDependencies": {
+    "jest": "^29.5.0",
     "nodemon": "^2.0.22"
   }
 }
